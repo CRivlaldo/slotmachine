@@ -11,14 +11,30 @@ public class SlotMachine {
 	
 	private static int credits = 20;
 
-	private static void printRandomSlots() {
-		for (int i = 0; i < 3; ++i) {
+	private static String[] getRandomSlots() {
+
+		String[] slots = new String[3];	
+
+		for (int i = 0; i < 3; ++i) {			
 			int iSlot = random.nextInt(SlotMachine.slots.length);
-			System.out.print (SlotMachine.slots[iSlot]);
-			if (i < 2) System.out.print("  ");
+			slots[i] = SlotMachine.slots[iSlot];
+		}
+
+		return slots;
+	}
+
+	private static void printSlots(String[] slots) {
+
+		for (int i = 0; i < slots.length; ++i) {
+			System.out.print(slots[i]);
+			if (i < slots.length - 1) System.out.print("  ");
 		}
 
 		System.out.println();
+	}
+
+	private static void printRandomSlots() {
+		// ToDo 1: how to print random slots?
 	}
 
 	private static void clearScreen() {
@@ -56,14 +72,16 @@ public class SlotMachine {
 			clearLine();
 		}
 
-		
-		printRandomSlots();
+		String[] slots = getRandomSlots();
+		printSlots(slots);
+
+		// ToDo 2: check whether player has won or not
 		
 		if (credits == 0) {
-		System.out.println("You lose!");
-		 return true;
-		
+			System.out.println("You lose!");
+			return true;		
 		}
+
 		waitForEnter();
 		--credits;
 		
@@ -74,18 +92,17 @@ public class SlotMachine {
 	private static void readEnter() {
 		Scanner scanner = new Scanner(System.in);
 		String readString = scanner.nextLine();
-	}
-		
+	}		
 
 	public static void main (String args[]) {
 	    
         Boolean gameOver = false;
         Boolean isFirstRound = true;
 	    try {
-    	    	while (gameOver == false){
-    	          gameOver = playRound(isFirstRound);
-    	          isFirstRound = false;
-    	    	}
-	     } catch (Exception e) {}
+	    	while (gameOver == false){
+	    		gameOver = playRound(isFirstRound);
+	    		isFirstRound = false;
+	    	}
+	    } catch (Exception e) {}
 	}
 }
