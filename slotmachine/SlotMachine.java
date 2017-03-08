@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class SlotMachine {
 
 	private static String slots[] = {"🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🍅","🍆","🌽", "🌶️","🍄"};
-	
+
 	private static Random random = new Random();
 	
 	private static int credits = 20;
@@ -34,7 +34,7 @@ public class SlotMachine {
 	}
 
 	private static void printRandomSlots() {
-		// ToDo 1: how to print random slots?
+		printSlots(getRandomSlots());
 	}
 
 	private static void clearScreen() {
@@ -66,7 +66,7 @@ public class SlotMachine {
 		    System.out.format("Your credits: %d%n", credits);
    		}
 		
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < 5; ++i) {
 			printRandomSlots();
 			Thread.sleep(100);
 			clearLine();
@@ -74,8 +74,12 @@ public class SlotMachine {
 
 		String[] slots = getRandomSlots();
 		printSlots(slots);
+		
+		if (slots[0].equals(slots[1]) && slots[0].equals(slots[2])) {
+			credits += 10;		
+			System.out.println("You win!");		
+		}
 
-		// ToDo 2: check whether player has won or not
 		
 		if (credits == 0) {
 			System.out.println("You lose!");
