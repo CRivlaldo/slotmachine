@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class SlotMachine {
 
-	private static String slots[] = {"🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🍅","🍆","🌽", "🌶️","🍄"};
+	private static final String slots[] = {"🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🍅","🍆","🌽", "🌶️","🍄"};
+	private static final double victoryChance = 0.2;
 
-	private static Random random = new Random();
-	
+	private static Random random = new Random();	
 	private static int credits = 20;
 
 	private static String[] getRandomSlots() {
@@ -21,6 +21,23 @@ public class SlotMachine {
 		}
 
 		return slots;
+	}
+	
+	private static Boolean areSlotsSimilar(String[] slots) {
+		// ToDo 1b: implement method
+		
+		return false;
+	}
+	
+	private static String[] getRandomSlots(double victoryProbability) {
+
+		if (random.nextDouble() < victoryProbability) {
+			// ToDo 2a: generate random similar slots 
+		} else {
+			// ToDo 2b: generate random different slots
+		}
+		
+		return null; // ToDo 2c: remove a stub
 	}
 
 	private static void printSlots(String[] slots) {
@@ -66,18 +83,19 @@ public class SlotMachine {
 		    System.out.format("Your credits: %d%n", credits);
    		}
 		
-		for (int i = 0; i < 5; ++i) {
+		for (int i = 0; i < 20; ++i) {
 			printRandomSlots();
-			Thread.sleep(100);
+			Thread.sleep(20);
 			clearLine();
 		}
 
-		String[] slots = getRandomSlots();
+		String[] slots = getRandomSlots(SlotMachine.victoryChance);
 		printSlots(slots);
 		
+		// ToDo 1a: use the method
 		if (slots[0].equals(slots[1]) && slots[0].equals(slots[2])) {
 			credits += 10;		
-			System.out.println("You win!");		
+			System.out.println("You won!");		
 		}
 
 		
@@ -92,7 +110,6 @@ public class SlotMachine {
 		return false;
 	}
 
-
 	private static void readEnter() {
 		Scanner scanner = new Scanner(System.in);
 		String readString = scanner.nextLine();
@@ -100,13 +117,13 @@ public class SlotMachine {
 
 	public static void main (String args[]) {
 	    
-        Boolean gameOver = false;
-        Boolean isFirstRound = true;
-	    try {
-	    	while (gameOver == false){
-	    		gameOver = playRound(isFirstRound);
-	    		isFirstRound = false;
-	    	}
-	    } catch (Exception e) {}
+        	Boolean gameOver = false;
+	        Boolean isFirstRound = true;
+		try {
+			while (gameOver == false) {
+	    			gameOver = playRound(isFirstRound);
+		    		isFirstRound = false;
+		    	}
+		} catch (Exception e) {}
 	}
 }
