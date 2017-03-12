@@ -23,21 +23,29 @@ public class SlotMachine {
 		return slots;
 	}
 	
-	private static Boolean areSlotsSimilar(String[] slots) {
-		// ToDo 1b: implement method
-		
-		return false;
+	private static Boolean areSlotsEqual(String[] slots) {
+		return slots[0].equals(slots[1]) && slots[0].equals(slots[2]);
 	}
 	
 	private static String[] getRandomSlots(double victoryProbability) {
 
 		if (random.nextDouble() < victoryProbability) {
-			// ToDo 2a: generate random similar slots 
+			int iSlot = random.nextInt(SlotMachine.slots.length);
+	    		String[] slots = new String[3];	
+
+			for (int i = 0; i < 3; ++i) {
+				slots[i] = SlotMachine.slots[iSlot];
+			}
+
+			return slots;
 		} else {
-			// ToDo 2b: generate random different slots
-		}
+			String[] slots = getRandomSlots();
 		
-		return null; // ToDo 2c: remove a stub
+			while (areSlotsEqual(slots)){
+				slots = getRandomSlots();
+			}
+			return slots;
+		}
 	}
 
 	private static void printSlots(String[] slots) {
@@ -92,8 +100,7 @@ public class SlotMachine {
 		String[] slots = getRandomSlots(SlotMachine.victoryChance);
 		printSlots(slots);
 		
-		// ToDo 1a: use the method
-		if (slots[0].equals(slots[1]) && slots[0].equals(slots[2])) {
+		if (areSlotsEqual(slots)) {
 			credits += 10;		
 			System.out.println("You won!");		
 		}
